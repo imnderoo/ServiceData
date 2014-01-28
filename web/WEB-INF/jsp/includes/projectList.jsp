@@ -1,0 +1,19 @@
+<h3> Project List </h3>
+  <table width="70%" border="0" class="details">
+    <tr>
+    	<th>Project Name</th>
+    	<th>Note</th>
+    </tr>
+    
+    <c:forEach items="${allProjects}" var="project">
+    <tr> 
+    	<td>
+    	<a href="<c:url value="/projectDetails.htm"><c:param name="projectId" value="${project.projectId}"/></c:url>"><c:out value="${project.name}"/></a>
+    	</td>
+    	<td><c:out value="${project.note}"/>&nbsp;</td>
+    
+        
+    </tr>
+    </c:forEach>
+   
+  </table>

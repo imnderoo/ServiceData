@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"  
+		"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+   <bean id="urlMapping" 
+   		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+				<prop key="/index.htm">projectsController</prop>
+				<prop key="/projectDetails.htm">serviceDataController</prop>
+				<prop key="/loadResults.htm">loadResultsController</prop>
+				<prop key="/exportResults.htm">exportResultsController</prop>
+				<prop key="/projects.htm">projectsController</prop>
+				<prop key="/runDetails.htm">serviceDataController</prop>
+				<prop key="/deleteResults.htm">serviceDataController</prop>
+				<prop key="/archiveProject.htm">serviceDataController</prop>
+				<prop key="/deleteProject.htm">serviceDataController</prop>
+				<prop key="/editResult.htm">editResultController</prop>
+				<prop key="/editRunDateNote.htm">editRunDateController</prop>
+				<prop key="/deleteAssay.htm">serviceDataController</prop>
+           </props>	           
+        </property>
+    </bean>
+
+	<bean id="loadResultsController" 
+		class="agtc.servicedata.web.controller.LoadResultsController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>loadResults</value></property>
+		<property name="generalManager"><ref bean="generalManager"/></property>
+   </bean>
+
+   <bean id="editRunDateController" 
+   		class="agtc.servicedata.web.controller.EditRunDateController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>editRunDate</value></property>
+		<property name="generalManager"><ref bean="generalManager"/></property>    
+   </bean>
+
+   <bean id="editResultController" 
+   		class="agtc.servicedata.web.controller.EditResultController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>editResult</value></property>
+		<property name="generalManager"><ref bean="generalManager"/></property>    
+   </bean>
+
+   <bean id="projectsController" 
+   		class="agtc.servicedata.web.controller.ProjectsController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>projects</value></property>
+		<property name="successView"><value>projectDetails.htm</value></property>
+		<property name="generalManager"><ref bean="generalManager"/></property>
+    
+   </bean>
+
+   <bean id="exportResultsController" 
+   		class="agtc.servicedata.web.controller.ExportResultsController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>exportResults</value></property>
+		<property name="generalManager"><ref bean="generalManager"/></property>
+    
+   </bean>
+  
+    <bean id="serviceDataController" 
+    	class="agtc.servicedata.web.controller.ServiceDataController">
+		<property name="methodNameResolver"><ref local="serviceDataControllerResolver"/></property>
+		<property name="generalManager"><ref bean="generalManager"/></property>
+		
+    </bean>
+
+	<bean id="serviceDataControllerResolver" 
+		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				
+				<prop key="/projectDetails.htm">projectDetailsHandler</prop>
+				<prop key="/runDetails.htm">runDetailsHandler</prop>
+				<prop key="/deleteResults.htm">deleteResultsHandler</prop>
+				<prop key="/archiveProject.htm">archiveProjectHandler</prop>
+				<prop key="/deleteProject.htm">deleteProjectHandler</prop>
+				<prop key="/deleteAssay.htm">deleteAssayHandler</prop>
+				
+			</props>
+		</property>
+	</bean>
+ 
+     <bean id="viewResolver" 
+     	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+           <value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+    
+    <bean id="multipartResolver" 
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize">
+            <value>10000000</value>
+        </property>
+    </bean>
+
+
+
+</beans>

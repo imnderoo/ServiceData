@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%p - %d{HH:mm:ss} | %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="HbLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="C:/ServiceData/logs/HB.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%p - %d{HH:mm:ss} | %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="SpringLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="C:/ServiceData/logs/Spring.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%p - %d{HH:mm:ss} | %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="serviceDataLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="C:/ServiceData/logs/serviceData.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%C{1}:%M: %p - %d{HH:mm:ss} | %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="org.apache">
+        <level value="INFO"/>
+    </logger>
+
+    
+    <logger name="net.sf.hibernate">
+        <level value="INFO"/>
+        <appender-ref ref="HbLog"/>
+    </logger>
+
+    <logger name="org.springframework">
+        <level value="INFO"/>
+        <appender-ref ref="SpringLog"/>
+    </logger>
+   
+
+    <logger name="agtc.servicedata">
+        <level value="DEBUG"/>
+        <appender-ref ref="serviceDataLog"/>
+    </logger>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</log4j:configuration>

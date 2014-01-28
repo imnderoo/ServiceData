@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project name="serviceData" basedir="." default="help">
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="web"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="build.dir" value="build"/>
+    <property name="test.dir" value="build/test"/>
+    <property name="webapp.name" value="serviceData"/>
+
+    <property environment="env"/>
+    <property name="tomcat.home" value="/Users/nderoo324/Downloads/apache-tomcat-7.0.50"/>
+
+    <path id="classpath">
+        <fileset dir="${web.dir}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tomcat.home}/lib">
+            <include name="servlet*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+
+    <target name="help">
+        <echo message=""/>
+        <echo message="${webapp.name} build file"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="compile   --> Compile all Java files"/>
+        <echo message="test      --> Runs JUnit tests"/>
+        <echo message="war       --> Package as WAR file"/>
+        <echo message="deploy    --> Deploy application as directory"/>
+        <echo message="deploywar --> Deploy application as a WAR file"/>
+        <echo message=""/>
+        <echo message="install   --> Install application in Tomcat"/>
+        <echo message="remove    --> Remove application from Tomcat"/>
+        <echo message="reload    --> Reload application in Tomcat"/>
+        <echo message="start     --> Start Tomcat application"/>
+        <echo message="stop      --> Stop Tomcat application"/>
+        <echo message="list      --> List Tomcat applications"/>
+        <echo message=""/>
+        <echo message="clean     --> Deletes compiled classes and WAR"/>
+        <echo message="new       --> Creates a new project"/>
+    </target>
+
+    <target name="compile" description="Compile main source tree java files">
+        <mkdir dir="${build.dir}/classes"/>
+        <javac destdir="${build.dir}/classes" target="1.6" debug="true"
+            deprecation="false" optimize="false" failonerror="true">
+            <src path="${src.dir}"/>
+            <classpath refid="classpath"/>
+        </javac>
+        <!-- compile tests -->
+        
+        <!-- Copy hibernate mapping files to ${build.dir}/classes -->
+        <copy todir="${build.dir}/classes">
+            <fileset dir="${src.dir}" includes="**/*.hbm.xml"/>
+        </copy>
+    </target>
+   
+
+    <target name="war" depends="compile" description="Packages app as WAR">
+        <mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/${webapp.name}.war"
+            webxml="${web.dir}/WEB-INF/web.xml">
+            <classes dir="${build.dir}/classes"/>
+            <fileset dir="${web.dir}">
+                <include name="**/*.*"/>
+                <exclude name="**/web.xml"/>
+                <exclude name="**/junit.jar"/>
+                <exclude name="**/*mock.jar"/>
+                <exclude name="**/strutstestcase*.jar"/>
+            </fileset>
+        </war>
+    </target>
+
+    <target name="clean" description="Clean output directories">
+        <delete dir="build"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <!-- Creates release (source) distribution -->
+    <target name="dist" depends="clean"
+        description="create zip and tar.gz of ${webapp.name} for distribution">
+        <property name="archive.name"
+            value="${webapp.name}-${webapp.version}"/>
+        <mkdir dir="${dist.dir}"/>
+        <property name="archive.target" value="${dist.dir}/${archive.name}"/>
+        <zip zipfile="${archive.target}.zip">
+            <zipfileset prefix="${webapp.name}" dir="${basedir}">
+                <patternset id="srcfiles">
+                    <exclude name="*.log"/>
+                    <exclude name="junit*.properties"/>
+                    <exclude name="**/*~"/>
+                    <exclude name="**/*.bak"/>
+                    <exclude name="*/**.java.txt"/>
+                    <exclude name="${build.dir}/**"/>
+                    <exclude name="${dist.dir}/**"/>
+                    <exclude name="db/**"/>
+                    <exclude name="sandbox/**"/>
+                    <exclude name=".#**"/>
+                    <include name="**"/>
+                </patternset>
+            </zipfileset>
+        </zip>
+        <tar tarfile="${archive.target}.tar">
+            <tarfileset dir="${basedir}" mode="644"
+                prefix="${webapp.name}"
+                username="ant" group="ant">
+                <patternset refid="srcfiles"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${archive.target}.tar.gz" src="${archive.target}.tar"/>
+        <delete file="${archive.target}.tar"/>
+    </target>
+
+</project>
