@@ -92,7 +92,6 @@ public class RunDAOJdbcImpl extends JdbcDaoSupport implements RunDAO{
 	public void removeRun(int RunId) {
 		String sql = "delete from RUN where run_id="+RunId;
 		getJdbcTemplate().update(sql);
-
 	}
 	
 	private Integer getMaxRunId() {

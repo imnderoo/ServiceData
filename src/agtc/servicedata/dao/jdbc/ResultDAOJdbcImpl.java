@@ -135,20 +135,24 @@ public class ResultDAOJdbcImpl  extends JdbcDaoSupport implements ResultDAO{
 	}
 	
 	public void removeResults(int projectId,Timestamp timestamp){
-		String sql = "delete from RESULT where run_id in"
-					+"(select run_id from RUN where project_id="
-					+projectId+" and RUN_DATE=?)";
-		getJdbcTemplate().update(sql,new Object[]{timestamp});
-		sql = " delete from RUN where project_id="+projectId+" and RUN_DATE=?";
+		//String sql = "delete from RESULT where run_id in"
+		//			+"(select run_id from RUN where project_id="
+		//			+projectId+" and RUN_DATE=?)";
+		//getJdbcTemplate().update(sql,new Object[]{timestamp});
+		
+		// Deletion of the run should cause a delete cascade to remove all results
+		String sql = " delete from RUN where project_id="+projectId+" and RUN_DATE=?";
 		getJdbcTemplate().update(sql,new Object[]{timestamp});
 	}
 	
 	public void removeResults(int projectId){
-		String sql = "delete from RESULT where run_id in "
-						+"( select run_id from RUN where project_id="
-						+projectId+")";
-		getJdbcTemplate().update(sql);
-		sql ="delete from RUN where project_id="+projectId;
+		//String sql = "delete from RESULT where run_id in "
+		//				+"( select run_id from RUN where project_id="
+		//				+projectId+")";
+		//getJdbcTemplate().update(sql);
+		
+		// Deletion of the run should cause a delete cascade to remove all results
+		String sql ="delete from RUN where project_id="+projectId;
 		getJdbcTemplate().update(sql);
 	}
 	
@@ -231,38 +235,5 @@ public class ResultDAOJdbcImpl  extends JdbcDaoSupport implements ResultDAO{
 			ps.setInt(4,r.getRunId().intValue());
 			//ps.setTimestamp(6,timeStamp);
 		}
-		
-	}
-/*	
-	public class ResultPreparedStatementSetter implements PreparedStatementSetter{
-		private Result result;
-		private int resultId;
-		
-		private java.sql.Timestamp timeStamp;
-		
-		
-		public ResultPreparedStatementSetter(){
-			
-		}
-		
-		public ResultPreparedStatementSetter(Result r,int i){
-			result = r;
-			resultId = i;
-			timeStamp = new Timestamp(System.currentTimeMillis());
-			
-		}
-		
-		public void setValues(PreparedStatement ps) throws SQLException{
-			
-			
-			ps.setInt(1,resultId);
-			ps.setString(2,result.getSampleId());
-			ps.setString(3,result.getAssay());
-			ps.setString(4,result.getResult());
-			//ps.setInt(5,result.getProjectId().intValue());
-			ps.setTimestamp(6,timeStamp);
-		}
-		
-	}
-	*/
+	}	
 }
