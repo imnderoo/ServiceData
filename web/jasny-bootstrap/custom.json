@@ -1,0 +1,35 @@
+{
+  "js": [
+    "bootstrap-rowlink.js",
+    "bootstrap-inputmask.js",
+    "bootstrap-fileupload.js"
+  ],
+  "css": [
+    "layouts-semifluid.less",
+    "action-areas.less",
+    "jasny-forms.less",
+    "forms-uneditable.less",
+    "action-links.less",
+    "iconic.less",
+    "jasny-navs-tabbable.less",
+    "page-alert.less",
+    "responsive-row-desktop.less"
+  ],
+  "img": [
+    "glyphicons-halflings.png",
+    "glyphicons-halflings-white.png"
+  ],
+  "font": [
+    "iconic_fill.eot",
+    "iconic_fill.otf",
+    "iconic_fill.svg",
+    "iconic_fill.ttf",
+    "iconic_fill.woff",
+    "iconic_stroke.eot",
+    "iconic_stroke.otf",
+    "iconic_stroke.svg",
+    "iconic_stroke.ttf",
+    "iconic_stroke.woff"
+  ],
+  "vars": {}
+}
