@@ -30,7 +30,7 @@ public class ProjectDAOJdbcImpl extends JdbcDaoSupport implements ProjectDAO {
 	private Log log = LogFactory.getLog(ProjectDAOJdbcImpl.class);
 	
 	public List getAllProjects() {
-		return getJdbcTemplate().query("select project_id,name,note from PROJECT",new QueryProjectHandler());
+		return getJdbcTemplate().query("select project_id,name,note from PROJECT order by name",new QueryProjectHandler());
 	}
 
 	/* (non-Javadoc)
