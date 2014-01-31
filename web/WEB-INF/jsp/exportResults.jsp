@@ -1,82 +1,80 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-
-<tr><td>
-<br>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
-<h2>Export Result (List file should be tab delimited text only)</h2>
+<h2>Export Result</h2>
 
-<form method="post" enctype="multipart/form-data">
-  <table width="70%" class="details">
-   
-	<tr> 
-          <td>Project: </td>
-          <td> 
-          <c:out value="${SelectedProject.name}"/>
-          <input type="hidden" name="projectId"
-           	value="<c:out value="${SelectedProject.projectId}"/>" />
-<!--             	
-          <select name="projectId" size="1">
-          
-    	 <c:forEach items="${projectList}" var="project">
-    	     <option 
-			 
-			 value="<c:out value="${project.projectId}"/>"><c:out value="${project.name}"/></option>
-    	  </c:forEach>
-          </select>
--->       
-       </td>
-    </tr>
+<form class="form-horizontal"  method="post" enctype="multipart/form-data">
 
-	<tr> 
-	 <td>
-		Upload a sampleId list file:</td><td>
-           <input type="file" name="file"/>
-      </td>
-    </tr>
+	<div class="control-group">
+		<label class="control-label">Project:</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/>
+				<input type="hidden" name="projectId" value="<c:out value="${SelectedProject.projectId}"/>" />
+			</div>
+	</div>
 
-	  <tr> 
-          <td colspan="2">
-			 <input type="checkbox" name="linkageFormat" value="yes"> Linkage format <br>
-          </td>
-      </tr>
-      
-    <tr><td>
-    </td></tr>
+
+	<div class="control-group">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="linkageFormat" value="yes"> Linkage format
+			</label>
+		</div>
+	</div>
+	
+	<h3>Select Run To Export</h3>
+
+
+<div class="control-group">
+		<div class="controls">
+	
+	<table class="span6 table table-striped table-condensed">
+	<tr>
+		<th>Result Load Time</th>
+		<th>Note</th>
+		<th>Edit</th>
+	</tr>
     <c:forEach items="${uniRunDates}" var="date">
     <tr> 
     	<td>
-    	<a href="<c:url value="/runDetails.htm">
-    		<c:param name="projectId" value="${SelectedProject.projectId}"/>
-    		<c:param name="runDate" value="${date.date}"/></c:url>">
-    		<c:out value="${date.date}"/></a>
-    		<input type="checkbox" name="SelectedRD" value="<c:out value="${date.date}"/>" />
+			<label class="checkbox">
+    			<input type="checkbox" name="SelectedRD" value="<c:out value="${date.date}"/>" />
+    			<a href="<c:url value="/runDetails.htm">
+    			<c:param name="projectId" value="${SelectedProject.projectId}"/>
+    			<c:param name="runDate" value="${date.date}"/></c:url>">
+    			<c:out value="${date.date}"/></a>
+    		</label>
     	</td>
+    	
     	<td>
-    	<a href="<c:url value="/editRunDateNote.htm">
+	    	<c:out value="${date.note}"/>
+    	</td>
+    	
+    	<td>
+    		<a href="<c:url value="/editRunDateNote.htm">
     		<c:param name="runId" value="${date.runId}"/></c:url>">
-    		<c:out value="${date.note}"/>&nbsp;&nbsp;&nbsp; </a>    		 
+    		<i class="icon-edit"></i></a>    		 
     	</td>
     </tr>
     </c:forEach>
    
   </table>
 
-	<tr> 
-      <td colspan="2">
-        <p>
-          <input type="submit" name="action" value="Export">
-          <input type="reset" name="Submit2" value="Reset">
-        </p>
-        </td>
-    </tr>
-    
-  
+</div>
+</div>
 
-    </table>
+	<div class="control-group">
+		<div class="controls">
+          <input class="btn" type="submit" name="action" value="Export">
+          <input class="btn" type="reset" name="Submit2" value="Reset">
+      </div>
+      </div> 
+      
+     	<!-- Just export everything. Filter using Excel instead. Keeping this so I don't have to change the code. -->
+    <input class="hidden" type="file" name="file"/>
+            
 </form>
 
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
