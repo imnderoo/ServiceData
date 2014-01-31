@@ -1,13 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-
-<tr><td>
-
-<p><h2>Delete Results</h2></p>
+<h2>Delete Results</h2>
 
 <form method="post" >
   <table border="0" class="details">
-    
 	<tr> 
           <td>Project: </td>
           <td> 
@@ -58,5 +54,4 @@
   </table>
   </form>
 
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

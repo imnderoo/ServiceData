@@ -1,11 +1,12 @@
-<h3> Result List </h3>
- 
- 
-  <table width="70%" border="0" class="details">
+<div class="row">
+<div class="span6">
+<h2> Result List </h2>
+
+  <table class="table table-condensed table-striped">
     <tr>
     	<th>Result Load Time</th>
     	<th>Note</th>
-    	
+    	<th>Edit</th>
     </tr>
     
     <c:forEach items="${uniRunDates}" var="date">
@@ -16,13 +17,16 @@
     		<c:param name="runDate" value="${date.date}"/></c:url>">
     		<c:out value="${date.date}"/></a>    		 
     	</td>
-    	
     	<td>
-    	<a href="<c:url value="/editRunDateNote.htm">
+	    	<c:out value="${date.note}"/>
+    	</td>
+    	<td>
+    		<a href="<c:url value="/editRunDateNote.htm">
     		<c:param name="runId" value="${date.runId}"/></c:url>">
-    		<c:out value="${date.note}"/>&nbsp;&nbsp;&nbsp; </a>    		 
+    		<i class="icon-edit"></i></a>    		 
     	</td>
     </tr>
     </c:forEach>
-   
   </table>
+</div>
+</div>

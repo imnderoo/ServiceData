@@ -24,7 +24,7 @@
   <div class="navbar navbar-inverse navbar-static-top">
 	<div class="navbar-inner">
 		<div class="container">
-			<a class="brand" href="index.htm"><i class="iconic-document-alt-stroke"></i>&nbsp;Service Data</a>
+			<a class="brand" href="http://172.31.104.12/serviceData"><i class="iconic-document-alt-stroke"></i>&nbsp;Service Data</a>
 			
 				<ul class="nav pull-right">
 					<!-- Apps -->
@@ -51,3 +51,4 @@
 		</div>
 	</div>
    
+   <div class="container">

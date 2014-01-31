@@ -1,81 +1,96 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
+<div class="row">
+<div class="span8">
+<h2>Load Results</h2>
 
-<tr><td>
+<form class="form-horizontal"  method="post" enctype="multipart/form-data">
 
-<p><h2>Load Results</h2></p>
+	<div class="control-group">
+		<label class="control-label">Project:</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/>
+				<input type="hidden" name="projectId" value="<c:out value="${SelectedProject.projectId}"/>" />
+			</div>
+	</div>
+	
+	<h3>Result File Format</h3>
+	
+	<div class="control-group">
+		<label class="control-label">Sample ID Column #:</label>
+			<div class="controls">
+				<select class="input-mini" name="sampleIdColumnNo" >
+			    	<c:forEach items="${allColumnNumbers}" var="colNo">
+	           	 		<option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
+	           		</c:forEach>
+	       		</select> 
+			</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Assay Name Column #:</label>
+			<div class="controls">
+				<select  class="input-mini" name="assayNameColumnNo" >
+			    	<c:forEach items="${allColumnNumbers}" var="colNo">
+	              		<option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
+	            	</c:forEach>
+	       		</select> 
+			</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Result Column #:</label>
+			<div class="controls">
+			<select class="input-mini" name="resultColumnNo" >
+			    <c:forEach items="${allColumnNumbers}" var="colNo">
+	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
+	            </c:forEach>
+	       </select>
+			</div>
+	</div>
+	
+	<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+					<input type="checkbox" name="MutiAssay" value="yes" />
+					Multiple Assays</label>
+			</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Upload Result File:</label>
+			<div class="controls">
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+			<div class="input-append">
+				<span class="uneditable-input fileupload-preview input-medium"></span> <span class="btn btn-file"> <span class="fileupload-new">Select
+						file</span> <span class="fileupload-exists">Change</span> <input type="file" name="file" /></span><a href="#"
+					class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+			</div>
+		</div>
+				<!-- <input type="file" name="file"/> -->
+			</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Note:</label>
+			<div class="controls">
+          		<input type="text" name="note" />
+			</div>
+	</div>
 
-<form method="post" enctype="multipart/form-data">
-  <table border="0" class="details">
+	<div class="control-group">
+		<div class="controls">
+		   	<input class="btn" type="submit" name="action" value="Load">
+    	    <input class="btn" type="reset" name="Submit2" value="Reset">
+		</div>
+	</div>
     
-	<tr> 
-          <td>Project: </td>
-          <td> <c:out value="${SelectedProject.name}"/>
-          <input type="hidden" name="projectId"
-           	value="<c:out value="${SelectedProject.projectId}"/>" />
-		 <!--<select name="projectId" size="1">
-    	 <c:forEach items="${projectList}" var="project">
-    	     <option value="<c:out value="${project.projectId}"/>"><c:out value="${project.name}"/></option>
-    	  </c:forEach> </select>-->       
-       </td>
-    </tr>
+</form>
 
-	<tr> 
-          <td>Result file format</td>
-          <td> 
-          		<table> <tr> <td>SampleId column number:</td><td>
-			<select name="sampleIdColumnNo" >
-			    <c:forEach items="${allColumnNumbers}" var="colNo">
-	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
-	            </c:forEach>
-	       </select>  </td></tr>
-	       <tr><td>
-		   Assay Name column number:</td><td>
-			<select name="assayNameColumnNo" >
-			    <c:forEach items="${allColumnNumbers}" var="colNo">
-	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
-	            </c:forEach>
-	       </select>  </td></tr>
-	       <tr><td>
-		   Result column number:</td><td>
-			<select name="resultColumnNo" >
-			    <c:forEach items="${allColumnNumbers}" var="colNo">
-	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
-	            </c:forEach>
-	       </select></td></tr>
-	       <tr><td>*Mutiple assays</td>
-	       		<td><input type="checkbox" name="MutiAssay" value="yes" /></td></tr>
-	       
-			</table>
-		  </td>
-    </tr>
-
-	 <tr> 
-          <td>Upload Result file:</td>
-          <td>
-             <input type="file" name="file"/>
-          </td>
-    </tr>
- 
-	<tr> 
-          <td>Note: </td>
-          <td>  
-          <input type="text" name="note"	 />
-       </td>
-    </tr>
-    
-    <tr> 
-      <td colspan="2">
-        <p>
-          <input type="submit" name="action" value="Load">
-          <input type="reset" name="Submit2" value="Reset">
-        </p>
-        </td>
-    </tr>
-  </table>
-  </form>
 <br>
-*Mutiple assays file sample:<br>
+
+<h3>Mutiple assays file sample</h3>
+
 <table>
 <tr><td>Sample ID</td><td>rs2241715</td><td>rs1982072</td><td>rs12602</td><td>rs4803462</td><td>rs2316973</td></tr>
 <tr><td>JS1018</td><td>GG</td><td>TT</td><td>GG</td><td>AA</td><td>CC</td></tr>
@@ -83,5 +98,7 @@
 <tr><td>JS1025</td><td>GG</td><td>TT</td><td>GG</td><td>AA</td><td>CC</td></tr>
 <tr><td>JS1031</td><td>GG</td><td>TT</td><td>GG</td><td>AA</td><td>CC</td></tr>
 </table>
-</td></tr>
+
+</div>
+</div>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

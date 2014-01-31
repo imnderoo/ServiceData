@@ -1,50 +1,53 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-<tr><td>
+<div class="row">
+<div class="span6">
+<h2>Edit Note</h2>
 
-<p><h2>Edit Note</h2></p>
+<form class="form-horizontal"  method="post" enctype="multipart/form-data">
 
-<form method="post" enctype="multipart/form-data">
-  <table border="0" class="details">
-    
-	<tr> 
-          <td>Project: </td>
-          <td> <c:out value="${SelectedProject.name}"/>
-            <input type="hidden" name="projectId"
-           	value="<c:out value="${SelectedProject.projectId}"/>" />
-       	  </td>
-    </tr>
+	<div class="control-group">
+		<label class="control-label">Project:</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/>
+				 <input type="hidden" name="projectId" value="<c:out value="${SelectedProject.projectId}"/>" />
+			</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Load Result Time:</label>
+			<div class="controls">
+				<spring:bind path="command.date">
+					<input class="input-xlarge" type="text" name="date" value="<c:out value="${status.value}" />" readonly=""/>
+				</spring:bind> 
+			</div>
+	</div>
 
-	<tr> 
-          <td>Load Result Time: </td>
-          <td> 
-          <spring:bind path="command.date">
-             <INPUT type="text" READONLY maxlength="255" size="30" name="date" 
-                 value="<c:out value="${status.value}"/>">
-		  </spring:bind> 
-       </td>
-    </tr>
- 
-	<tr> 
-          <td>Note: </td>
-          <td> 
-          <spring:bind path="command.note">
-             <INPUT type="text" maxlength="255" size="30" name="note" 
-                 value="<c:out value="${status.value}"/>">
-		  </spring:bind> 
-       </td>
-    </tr>
-    
-    <tr> 
-      <td colspan="2">
-          <input type="submit" name="action" value="Save">
-        </td>
-    </tr>
-  </table>
-  </form>
-  <br><br>
-  <h3>Assay List</h3>
-  <form action="deleteAssay.htm" method="post" 
+	<div class="control-group">
+		<label class="control-label">Note:</label>
+			<div class="controls">
+				<spring:bind path="command.note">
+					<input class="input-xlarge" type="text" name="date" value="<c:out value="${status.value}" />" />
+				</spring:bind> 
+			</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+    		<input class="btn" type="submit" name="action" value="Save">
+		</div>
+	</div>
+</form>
+
+</div>
+</div>
+
+<div class="row">
+<div class="span6">
+  
+  <h2>Assay List</h2>
+  
+  <form class="form-horizontal" action="deleteAssay.htm" method="post" 
   	onsubmit="return validateAndSubmit(); ">
   	
   	<SCRIPT LANGUAGE="javascript">
@@ -55,7 +58,11 @@ function validateAndSubmit(){
 
   	<input type="hidden" name="runId"
            	value="<c:out value="${runId}"/>" />
-  	<table width="70%" border="0" class="details">
+           	      
+	<div class="control-group">
+	<div class="controls">
+			           	          	
+  	<table class="details">
   		<tr><th>Assay Name</th><th></th></tr>
 	  	<c:forEach items="${uniAssayList}" var="assay">
     		<tr> 	<td>
@@ -66,9 +73,15 @@ function validateAndSubmit(){
     		</td>   </tr>
     	</c:forEach>
     	<tr>       <td colspan="2">
-          <input type="submit" name="delete" value="Delete Assay Result">
+          <input class="btn" type="submit" name="delete" value="Delete Assay Result">
         </td>      </tr>
   	</table>
+  	
+  	</div>
+  	</div>
   </form>
-</td></tr>
+  
+</div>
+</div>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
