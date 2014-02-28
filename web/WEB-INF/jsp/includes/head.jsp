@@ -49,6 +49,9 @@
 				</ul>
 			</div>
 		</div>
+		
+		<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
+		
 	</div>
    
    <div class="container">

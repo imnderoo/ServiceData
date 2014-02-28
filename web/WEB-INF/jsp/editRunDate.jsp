@@ -9,8 +9,11 @@
 	<div class="control-group">
 		<label class="control-label">Project:</label>
 			<div class="controls">
-				<input class="input-xlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/>
-				 <input type="hidden" name="projectId" value="<c:out value="${SelectedProject.projectId}"/>" />
+				<span class="uneditable-input"><a href="<c:url value="/projectDetails.htm"><c:param name="projectId" value="${SelectedProject.projectId}"/></c:url>"><c:out value="${SelectedProject.name}" /></a></span>
+				
+<%-- 				<c:out value="${SelectedProject.projectId}/> --%>
+<%-- 				<input class="input-xlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/> --%>
+<%-- 				 <input type="hidden" name="projectId" value="<c:out value="${SelectedProject.projectId}"/>" /> --%>
 			</div>
 	</div>
 	
@@ -27,7 +30,7 @@
 		<label class="control-label">Note:</label>
 			<div class="controls">
 				<spring:bind path="command.note">
-					<input class="input-xlarge" type="text" name="date" value="<c:out value="${status.value}" />" />
+					<input class="input-xlarge" type="text" name="note" value="<c:out value="${status.value}" />" />
 				</spring:bind> 
 			</div>
 	</div>

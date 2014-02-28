@@ -9,7 +9,7 @@
 	<div class="control-group">
 		<label class="control-label">Project:</label>
 			<div class="controls">
-				<input class="input-xlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/>
+				<input class="input-xxlarge" type="text" name="projectName" value="<c:out value="${SelectedProject.name}" />" readonly=""/>
 				<input type="hidden" name="projectId" value="<c:out value="${SelectedProject.projectId}"/>" />
 			</div>
 	</div>
@@ -62,19 +62,19 @@
 			<div class="controls">
 				<div class="fileupload fileupload-new" data-provides="fileupload">
 			<div class="input-append">
-				<span class="uneditable-input fileupload-preview input-medium"></span> <span class="btn btn-file"> <span class="fileupload-new">Select
+				<span class="uneditable-input fileupload-preview input-xxlarge"></span> <span class="btn btn-file"> <span class="fileupload-new">Select
 						file</span> <span class="fileupload-exists">Change</span> <input type="file" name="file" /></span><a href="#"
 					class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 			</div>
 		</div>
-				<!-- <input type="file" name="file"/> -->
+
 			</div>
 	</div>
 	
 	<div class="control-group">
 		<label class="control-label">Note:</label>
 			<div class="controls">
-          		<input type="text" name="note" />
+          		<input class="input-xxlarge" type="text" name="note" />
 			</div>
 	</div>
 
